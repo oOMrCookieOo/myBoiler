@@ -23,3 +23,7 @@ Route::post('register', 'Api\AuthController@register');
 
 Route::get('email/resend', 'Api\VerificationApiController@resend')->name('verificationapi.resend');
 Route::get('email/verify/{id}', 'Api\VerificationApiController@verify')->name('verificationapi.verify');
+
+Route::group(['middleware' => 'auth.jwt'], function () {
+    Route::get('/allusers','Api\AuthController@GetUsers');
+});

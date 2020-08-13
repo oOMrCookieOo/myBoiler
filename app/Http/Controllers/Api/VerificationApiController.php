@@ -7,6 +7,8 @@ use App\User;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Auth\Events\Verified;
+use Illuminate\Support\Facades\Auth;
 
 class VerificationApiController extends Controller
 {
@@ -32,25 +34,17 @@ class VerificationApiController extends Controller
         $userID = $request['id'];
         $user = User::findOrFail($userID);
         $date = date("Y-m-d g:i:s");
-        $user->email_verified_at = $date; // to enable the “email_verified_at field of that user be a current time stamp by mimicing the must verify email feature
+        $user->email_verified_at = $date;
         $user->save();
         return response()->json('Email verified!');
     }
 
-    /**
-     * Resend the email verification notification.
-     *
-     * @param Request $request
-     * @return Response
-     */
     public function resend(Request $request)
     {
-        if ($request->user()->hasVerifiedEmail()) {
+        if (User::where("email",$request->email)->first()->hasVerifiedEmail()) {
             return response()->json('User already have verified email!', 422);
-            // return redirect($this->redirectPath());
         }
-        $request->user()->sendApiEmailVerificationNotification();
+        User::where("email",$request->email)->first()->sendApiEmailVerificationNotification();
         return response()->json('The notification has been resubmitted');
-// return back()->with(‘resent’, true);
     }
 }
