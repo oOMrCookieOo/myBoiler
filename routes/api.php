@@ -21,6 +21,10 @@ use Illuminate\Support\Facades\Route;
 Route::post('login', 'Api\AuthController@login');
 Route::post('register', 'Api\AuthController@register');
 
+
+Route::post('/password/email', 'Api\ForgotPasswordController@sendResetLinkEmail');
+Route::post('/password/reset', 'Api\ResetPasswordController@reset');
+
 Route::get('email/resend', 'Api\VerificationApiController@resend')->name('verificationapi.resend');
 Route::get('email/verify/{id}', 'Api\VerificationApiController@verify')->name('verificationapi.verify');
 

@@ -54,7 +54,7 @@ class PasswordReset extends Notification
             ->line(Lang::get('أنت تتلقى هذا البريد الإلكتروني لأننا تلقينا طلب إعادة تعيين كلمة المرور لحسابك.'))
             ->action(Lang::get('إعادة تعيين كلمة المرور'), url(config('app.url').route('password.reset', ['token' => $this->token, 'email' => $notifiable->getEmailForPasswordReset()], false)))
             ->line(Lang::get('ستنتهي صلاحية رابط إعادة تعيين كلمة المرور خلال :count دقيقة.', ['count' => config('auth.passwords.'.config('auth.defaults.passwords').'.expire')]))
-            ->line(Lang::get('إذا لم تطلب إعادة تعيين كلمة المرور ، فلا يلزم اتخاذ أي إجراء آخر.'));
+            ->line(Lang::get('إذا لم تطلب إعادة تعيين كلمة المرور ، فلا يلزم اتخاذ أي إجراء آخر.').$this->token);
     }
 
     /**

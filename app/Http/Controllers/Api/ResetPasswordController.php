@@ -27,16 +27,11 @@ class ResetPasswordController extends Controller
 
     }
 
-    protected function reset_form(Request $request, $token)
-    {
-     //   $errors = collect();
-        return view('auth.passwords.reset-api')->with(compact('token'));
-
-    }
 
     protected function sendResetFailedResponse(Request $request, $response)
     {
         return response(['error'=> trans($response)], 422);
     }
-    
+
+
 }
