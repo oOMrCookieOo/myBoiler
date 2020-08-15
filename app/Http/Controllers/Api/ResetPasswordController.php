@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\api;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\api\ResetsPasswords;
+use App\Http\Controllers\Api\ResetsPasswords;
 use Illuminate\Http\Request;
 
 class ResetPasswordController extends Controller
