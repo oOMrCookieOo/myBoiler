@@ -56,7 +56,7 @@ class AuthController extends Controller
         return response()->json([
             'status' => true,
             'token' => $token,
-        ]);
+        ],200);
     }
 
     /**
@@ -68,7 +68,7 @@ class AuthController extends Controller
     {
 
         JWTAuth::parseToken()->invalidate();
-        return response()->json(['status' => true, 'message' => 'تم تسجيل الخروج بنجاح ']);
+        return response()->json(['status' => true, 'message' => 'تم تسجيل الخروج بنجاح '],200);
     }
 
     /**
@@ -84,6 +84,8 @@ class AuthController extends Controller
             'email.regex' => ' يجب عليك إدخال بريدك الإلكتروني بشكل صحيح',
             'email.unique' => 'هذا البريد الإلكتروني محجوز من قبل ',
             'password.required' => 'يجب عليك إدخال كلمة السر الخاصة بك',
+            'c_password.required'=>'يجب عليك إدخال تاكيد كلمة السر الخاصة بك',
+            'c_password.same'=>'كلمه المرور لا تتوافق مع التاكيد',
         ];
 
 
@@ -91,6 +93,7 @@ class AuthController extends Controller
             'name' => ['string', 'max:20'],
             'email' => 'required|string|max:255|email|regex:/(.+)@(.+)\.(.+)/i|unique:users',
             'password' => 'required|min:8', 'string',
+            'c_password'=>'required|same:password'
         ], $messages);
 
 
@@ -120,7 +123,10 @@ class AuthController extends Controller
 
     public function GetUsers()
     {
-        return User::all();
+        return response()->json([
+            "status"=>true,
+            "data"=>User::all()
+        ],200) ;
     }
 
 }

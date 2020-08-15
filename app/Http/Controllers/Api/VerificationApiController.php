@@ -36,7 +36,7 @@ class VerificationApiController extends Controller
         $date = date("Y-m-d g:i:s");
         $user->email_verified_at = $date;
         $user->save();
-        return response()->json('Email verified!');
+        return response()->json('Email verified!',200);
     }
 
     public function resend(Request $request)
@@ -45,6 +45,6 @@ class VerificationApiController extends Controller
             return response()->json('User already have verified email!', 422);
         }
         User::where("email",$request->email)->first()->sendApiEmailVerificationNotification();
-        return response()->json('The notification has been resubmitted');
+        return response()->json('The notification has been resubmitted',200);
     }
 }
